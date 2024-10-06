@@ -1,3 +1,4 @@
+<jsp:useBean id="mealForEdit" scope="request" type="ru.javawebinar.topjava.model.Meal"/>
 <%@ taglib prefix="form" uri="http://jakarta.apache.org/taglibs/standard/permittedTaglibs" %>
 <%--
   Created by IntelliJ IDEA.
@@ -9,27 +10,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Add/Update</title>
 </head>
 <body>
-<form action="meal.jsp" name="reformedMeal">
+
+<%--Отправляем на /meals в метод post--%>
+<form action="meals" method="post">
+    <input type="hidden" name="id" value="${mealForEdit != null ? mealForEdit.id: ''}">
+    <input type="hidden" name="action" value="${mealForEdit != null ? 'update' : 'add'}">
+
     <label>
-       DateTime <input type="datetime-local" name="date"/>
+       DateTime <input type="datetime-local" name="date" value="${mealForEdit != null ? mealForEdit.dateTime: ''}"/>
     </label>
     <br>
     <br>
     <label>
-        Description <input name="description"/>
+        Description <input type="text" name="description" value="${mealForEdit != null ? mealForEdit.description: ''}"/>
     </label>
     <br>
     <br>
     <label>
-        Calories <input name="calories"/>
+        Calories <input  name="calories" value="${mealForEdit != null ? mealForEdit.calories: ''}"/>
     </label>
     <br>
     <br>
 </form>
-<input type="submit"  value="Отправить" onclick="window.location.href= 'meal.jsp'">
+<input type="submit"  value="OK" onclick="window.location.href = 'meal.jsp'">
 
 </body>
 </html>
