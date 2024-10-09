@@ -6,6 +6,7 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.MealTo;
 import ru.javawebinar.topjava.util.MealsUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class MealDAOServiceImpl implements MealDAOService{
@@ -37,8 +38,8 @@ public class MealDAOServiceImpl implements MealDAOService{
     }
 
     @Override
-    public void updateMeal(Meal meal) {
-        mealDAO.updateMeal(meal);
+    public void updateMeal(int id, LocalDateTime updatedDateTime, String updatedDescription, int updatedCal) {
+        mealDAO.updateMeal(id, updatedDateTime, updatedDescription, updatedCal);
     }
 
     @Override

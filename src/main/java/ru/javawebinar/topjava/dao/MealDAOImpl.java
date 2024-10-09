@@ -8,18 +8,19 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MealDAOImpl implements MealDAO {
 
-    private List<Meal> meals;
+    private final List<Meal> meals;
 
     public MealDAOImpl() {
-        meals = new ArrayList<>();
+        meals = new CopyOnWriteArrayList<>();
     }
 
     @Override
     public List<Meal> getAllMeal() {
-        return meals;
+        return new CopyOnWriteArrayList<>(meals);
     }
 
     @Override
@@ -40,13 +41,22 @@ public class MealDAOImpl implements MealDAO {
         meals.removeIf(meal -> meal.getId() == id);
     }
 
-    @Override
-    public void updateMeal(Meal updatedMeal) {
-        for (Meal meal: meals) {
-            if (meal.getId() == updatedMeal.getId()) {
-                meals.set(meals.indexOf(meal), updatedMeal);
-                break;
-            }
+
+
+    public void updateMeal(int id, LocalDateTime updatedDateTime, String updatedDescription, int updatedCal) {
+        Meal currentMeal = getMeal(id);
+
+        if (currentMeal == null) {
+            throw new IllegalArgumentException("Meal with id " + id + " not found.");
         }
+
+        // Обновляем свойства текущего блюда
+        currentMeal.setDateTime(updatedDateTime);
+        currentMeal.setDescription(updatedDescription);
+        currentMeal.setCalories(updatedCal);
+
+        // Здесь нет необходимости использовать meals.set()
+        // так как мы напрямую изменили currentMeal
     }
+
 }

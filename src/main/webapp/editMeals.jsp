@@ -1,4 +1,5 @@
-<jsp:useBean id="mealForEdit" scope="request" type="ru.javawebinar.topjava.model.Meal"/>
+<%--<jsp:useBean id="meal" scope="request" type="ru.javawebinar.topjava.model.Meal"/>--%>
+
 <%@ taglib prefix="form" uri="http://jakarta.apache.org/taglibs/standard/permittedTaglibs" %>
 <%--
   Created by IntelliJ IDEA.
@@ -10,32 +11,33 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Add/Update</title>
+    <title>Add/Update Meal</title>
 </head>
 <body>
 
-<%--Отправляем на /meals в метод post--%>
-<form action="meals" method="post">
-    <input type="hidden" name="id" value="${mealForEdit != null ? mealForEdit.id: ''}">
-    <input type="hidden" name="action" value="${mealForEdit != null ? 'update' : 'add'}">
+<h3>${meal.id == 0 ? 'Add New Meal' : 'Edit Meal'}</h3>
+
+<%--Отправляем addServlet в метод post--%>
+<form action="${pageContext.request.contextPath}/updateMeal" method="post" >
+    <input type="hidden" name="id" value="${forUpdateMeal.id}">
 
     <label>
-       DateTime <input type="datetime-local" name="date" value="${mealForEdit != null ? mealForEdit.dateTime: ''}"/>
+       DateTime <input type="datetime-local" name="dateTime" value="${forUpdateMeal.dateTime}"/>
     </label>
     <br>
     <br>
     <label>
-        Description <input type="text" name="description" value="${mealForEdit != null ? mealForEdit.description: ''}"/>
+        Description <input type="text" name="description" value="${forUpdateMeal.description}" required/>
     </label>
     <br>
     <br>
     <label>
-        Calories <input  name="calories" value="${mealForEdit != null ? mealForEdit.calories: ''}"/>
+        Calories <input  name="calories" value="${forUpdateMeal.calories}" required/>
     </label>
     <br>
     <br>
+    <input type="submit" value="Save"/>
 </form>
-<input type="submit"  value="OK" onclick="window.location.href = 'meal.jsp'">
 
 </body>
 </html>

@@ -38,21 +38,37 @@
 
     <c:forEach items="${listMealTo}" var="currentMeal">
 
+<%--        <c:url var="updateButton" value="addOrUpdateMeal">--%>
+<%--            <c:param name="mealId" value="${currentMeal.id}"/>--%>
+<%--        </c:url>--%>
+
+<%--        <c:url var="deleteButton" value="deleteMeal">--%>
+<%--            <c:param name="mealId" value="${currentMeal.id}"/>--%>
+<%--        </c:url>--%>
+
         <tr class="${currentMeal.excess ? 'value2' : 'value1' }">
             <td>${currentMeal.dateTime}</td>
             <td>${currentMeal.description}</td>
             <td>${currentMeal.calories}</td>
             <td>
-                <a href="addOrUpdateMeal?action=update${currentMeal.id}">Edit</a>
-                <a href="addOrUpdateMeal?action=delete${currentMeal.id}">Delete</a>
+                <form method="get" action="${pageContext.request.contextPath}/updateMeal">
+
+                    <input type="hidden" name="id" value="${currentMeal.id}"/>
+                    <input type="submit" name="update" value="Edit"/>
+
+                </form>
+
+                <form method="post" action="${pageContext.request.contextPath}/deleteMeal">
+                    <input type="hidden" name="mealId" value="${currentMeal.id}"/>
+                    <input type="submit" name="delete" value="Delete"/>
+                </form>
             </td>
         </tr>
     </c:forEach>
-
     </tbody>
 </table>
 <br>
-<a href="addOrUpdateMeal?action=add">Add</a>
+<input type="button" value="Add" onclick="window.location.href='addMeal.jsp'">
 
 </body>
 </html>

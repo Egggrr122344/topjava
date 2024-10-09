@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.service;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.MealTo;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MealDAOService {
@@ -14,7 +15,7 @@ public interface MealDAOService {
 
     void deleteMeal(int id);
 
-    void updateMeal(Meal meal);
+    void updateMeal(int id, LocalDateTime updatedDateTime, String updatedDescription, int updatedCal);
 
     List<MealTo> getAllMealTo(int calories);
 }
