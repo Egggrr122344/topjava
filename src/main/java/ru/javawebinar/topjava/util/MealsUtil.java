@@ -56,4 +56,5 @@ public class MealsUtil {
                     createTo(meal, sumByDate.get(meal.getDate()) > calories)
                 ).collect(Collectors.toList());
     }
+
 }
