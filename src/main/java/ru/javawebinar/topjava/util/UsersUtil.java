@@ -11,4 +11,5 @@ public class UsersUtil {
     public static List<User> orderByName(List<User> users) {
         return users.stream().sorted(Comparator.comparing(AbstractNamedEntity::getName)).collect(Collectors.toList());
     }
+
 }
