@@ -1,15 +1,28 @@
 package ru.javawebinar.topjava.model;
 
+import jdk.jfr.Name;
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@NamedQueries({
+        @NamedQuery(name = Meal.DELETE , query = "Delete from Meal m WHERE m.id =:id AND m.user.id =:user_id"),
+        @NamedQuery(name = Meal.GET_ORDERED, query = "SELECT m from Meal m where m.user.id =:user_id ORDER BY m.dateTime desc"),
+        @NamedQuery(name = Meal.GET_BETWEEN, query = "SELECT m from Meal m where m.user.id =:user_id AND m.dateTime BETWEEN :first_date AND :second_date order by m.dateTime desc"),
+})
+
 @Entity
-@Table(name = "meal")
+@Table(name = "meal", uniqueConstraints = { @UniqueConstraint(columnNames = {"user_id", "dateTime"}, name = "meal_unique_user_datetime_idx"   )})
 public class Meal extends AbstractBaseEntity {
+    public static final String DELETE = "Meal.delete";
+    public static final String GET_ORDERED = "Meal.getAll";
+    public static final String GET_BETWEEN = "Meal.getBetweenHalfOpen";
 
     @Column(name = "date_time", nullable = false)
     @NotNull
@@ -17,14 +30,16 @@ public class Meal extends AbstractBaseEntity {
 
     @Column(name = "description", nullable = false)
     @NotBlank
+    @Size(min = 2, max = 128)
     private String description;
 
-    @Column(name = "calories", nullable = false, columnDefinition = "calories default 0")
-    @NotNull
+    @Column(name = "calories", nullable = false)
+    @Range(min = 10, max = 5000)
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
 
     public Meal() {
