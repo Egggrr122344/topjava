@@ -12,8 +12,6 @@ import java.util.List;
 @Repository
 public class DataJpaMealRepository implements MealRepository {
 
-    private static final Sort ALL_SORT_BY_TIME = Sort.by(Sort.Direction.DESC, )
-
     private final CrudMealRepository crudRepository;
 
     private final CrudUserRepository crudUserRepository;
