@@ -3,7 +3,7 @@ package ru.javawebinar.topjava.model;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

@@ -3,8 +3,7 @@ package ru.javawebinar.topjava.model;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @MappedSuperclass
 // http://stackoverflow.com/questions/594597/hibernate-annotations-which-is-better-field-or-property-access
